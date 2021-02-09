@@ -2,6 +2,7 @@ package com.giassi.expenses.rest.services;
 
 import com.giassi.expenses.rest.entities.User;
 import com.giassi.expenses.rest.exceptions.InvalidDataException;
+import com.giassi.expenses.rest.exceptions.UserNotFoundException;
 import com.giassi.expenses.rest.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class UserService {
         Optional<User> userOpt = userRepository.findById(userId);
         if (!userOpt.isPresent()) {
             log.error(String.format("User not found for userId = %d", userId));
-            throw new InvalidDataException("User doesn't exists for Id " + userId);
+            throw new UserNotFoundException("User doesn't exists for Id " + userId);
         }
 
         return userOpt.get();

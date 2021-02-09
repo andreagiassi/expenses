@@ -7,7 +7,7 @@ import lombok.Data;
 public class UserDTO {
 
     public UserDTO() {
-        //
+        // empty impl
     }
 
     public UserDTO(User user) {

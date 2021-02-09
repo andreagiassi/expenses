@@ -18,11 +18,13 @@ public class UserService {
 
     public User getUserById(final Long userId) {
         if (userId == null) {
+            log.error("Invalid userId = null");
             throw new InvalidDataException("Invalid user Id");
         }
 
         Optional<User> userOpt = userRepository.findById(userId);
         if (!userOpt.isPresent()) {
+            log.error(String.format("User not found for userId = %d", userId));
             throw new InvalidDataException("User doesn't exists for Id " + userId);
         }
 

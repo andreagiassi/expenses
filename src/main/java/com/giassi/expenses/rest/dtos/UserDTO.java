@@ -11,6 +11,8 @@ public class UserDTO {
     }
 
     public UserDTO(User user) {
+        if (user == null)   return;
+
         this.id = user.getId();
         this.username = user.getUsername();
         this.name = user.getName();

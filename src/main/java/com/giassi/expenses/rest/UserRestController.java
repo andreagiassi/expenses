@@ -1,13 +1,17 @@
 package com.giassi.expenses.rest;
 
+import com.giassi.expenses.rest.dtos.ExpenseDTO;
+import com.giassi.expenses.rest.dtos.DateFilter;
 import com.giassi.expenses.rest.dtos.UserDTO;
+import com.giassi.expenses.rest.dtos.UserSummaryDTO;
+import com.giassi.expenses.rest.services.ExpenseService;
 import com.giassi.expenses.rest.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -16,12 +20,42 @@ public class UserRestController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable(value = "id") Long userId) {
+    @Autowired
+    private ExpenseService expenseService;
+
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserDTO> getUserById(@PathVariable(value = "userId") Long userId) {
         UserDTO userDTO = new UserDTO(
                 userService.getUserById(userId)
         );
         return ResponseEntity.ok(userDTO);
+    }
+
+    @GetMapping("/{userId}/summary")
+    public ResponseEntity<UserSummaryDTO> getUserCurrentMonthlySummary(@PathVariable(value = "userId") Long userId) {
+        return ResponseEntity.ok(expenseService.getUserSummary(userId, new DateFilter()));
+    }
+
+    @PostMapping("/{userId}/summary/filter")
+    public ResponseEntity<UserSummaryDTO> getUserSummaryFiltered(@PathVariable(value = "userId") Long userId,
+                                                                 @RequestBody DateFilter dateFilter) {
+        return ResponseEntity.ok(expenseService.getUserSummary(userId, dateFilter));
+    }
+
+    @GetMapping("/{userId}/expenses")
+    public ResponseEntity<List<ExpenseDTO>> getUserExpensesList(@PathVariable Long userId) {
+        ArrayList<ExpenseDTO> expenses = new ArrayList<>();
+        expenseService.getUserExpensesList(userId).forEach(e -> expenses.add(new ExpenseDTO(e)));
+        return ResponseEntity.ok(expenses);
+    }
+
+    @PostMapping("/{userId}/expenses/filter")
+    public ResponseEntity<List<ExpenseDTO>> getUserExpensesListFiltered(@PathVariable Long userId,
+                                                                        @RequestBody DateFilter dateFilter) {
+        ArrayList<ExpenseDTO> expenses = new ArrayList<>();
+        expenseService.getUserExpensesListFiltered(userId, dateFilter).forEach(e -> expenses.add(new ExpenseDTO(e)));
+        return ResponseEntity.ok(expenses);
     }
 
 }

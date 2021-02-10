@@ -1,6 +1,8 @@
 package com.giassi.expenses.rest.services;
 
 import com.giassi.expenses.rest.dtos.CreateExpense;
+import com.giassi.expenses.rest.dtos.DateFilter;
+import com.giassi.expenses.rest.dtos.UserSummaryDTO;
 import com.giassi.expenses.rest.entities.Category;
 import com.giassi.expenses.rest.entities.Expense;
 import com.giassi.expenses.rest.entities.User;
@@ -28,6 +30,7 @@ public class ExpenseService {
 
     @Autowired
     private UserService userService;
+
 
     public Expense getExpenseById(final Long expenseId) {
         Optional<Expense> expenseOptional = expenseRepository.findById(expenseId);
@@ -70,4 +73,31 @@ public class ExpenseService {
         return expenseRepository.getExpenseListByUserId(userId);
     }
 
+    public UserSummaryDTO getUserSummary(final Long userId, final DateFilter dateFilter) {
+        // check user
+        User user = userService.getUserById(userId);
+
+        // TODO: date filter validation
+
+        // sum expenses
+        LocalDateTime now = LocalDateTime.now();
+        Double total = expenseRepository.getTotalByYearAndMonth(userId, now.getYear(), now.getMonthValue());
+        if (total == null) {
+            total = 0d;
+        }
+
+        UserSummaryDTO summaryDTO = new UserSummaryDTO();
+        summaryDTO.setYear("" + now.getYear());
+        summaryDTO.setMonth(now.getMonth().name());
+        summaryDTO.setTotal(total);
+
+        log.info(summaryDTO.toString());
+
+        return summaryDTO;
+    }
+
+    public List<Expense> getUserExpensesListFiltered(final Long userId, final DateFilter dateFilter) {
+        // TODO: date filter validation
+        return expenseRepository.getExpenseListByUserIdFiltered(userId, dateFilter.getYear(), dateFilter.getMonth());
+    }
 }

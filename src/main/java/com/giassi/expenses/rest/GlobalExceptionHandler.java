@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler({ InvalidGenderException.class })
+    @ExceptionHandler({ InvalidDataException.class, InvalidGenderException.class })
     public ResponseEntity<ErrorDetails> handleAsBadRequest(RuntimeException ex) {
         ErrorDetails errorDetails = new ErrorDetails(ex.getMessage());
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);

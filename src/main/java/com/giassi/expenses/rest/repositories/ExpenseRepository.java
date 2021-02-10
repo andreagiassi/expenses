@@ -13,7 +13,7 @@ public interface ExpenseRepository extends CrudRepository<Expense, Long> {
     List<Expense> getExpenseListByUserId(Long userId);
 
     @Query(value = "select sum(price) from expenses where user_id = ?1 and YEAR(creation_dt)= ?2 and MONTH(creation_dt) = ?3", nativeQuery = true)
-    double getTotalByYearAndMonth(Long userId, int year, int monthValue);
+    Double getTotalByYearAndMonth(Long userId, int year, int monthValue);
 
     @Query(value = "select * from expenses where user_id = ?1 and YEAR(creation_dt)= ?2 and MONTH(creation_dt) = ?3", nativeQuery = true)
     List<Expense> getExpenseListByUserIdFiltered(Long userId, int year, int month);

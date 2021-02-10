@@ -12,6 +12,19 @@ The solution is composed o two different architectural components:
 * this Spring Boot REST Apis project
 * one MySql database
 
+#### UX/UI sketch
+Simple sketch of the app:
+
+![App Sketch](./src/main/resources/images/app_sketch.png "App interface")
+
+#### Use cases
+The feature offered are:
+* display the expenses list for the current month
+* retrieve the expenses list for a specific year and month 
+* create a new expense by pre-defined category
+* delete an expense
+* retrieve the expenses's categories (used during the expense creation)
+
 #### Author
 This project has been created in February 2021 by Andrea Giassi.
 

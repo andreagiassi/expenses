@@ -38,30 +38,25 @@ public class ExpenseService {
         return expenseOptional.get();
     }
 
+    @Transactional
     public Expense saveExpense(final CreateExpense createExpense) {
         if (createExpense == null) {
             throw new InvalidDataException("create expense cannot be null");
         }
 
-        return storeExpense(createExpense.getUserId(), createExpense.getCategoryId(), createExpense.getPrice(),
-                createExpense.getVoice());
-    }
-
-    @Transactional
-    public Expense storeExpense(final Long userId, final Long categoryId, final double price, final String voice) {
         // check user
-        User user = userService.getUserById(userId);
+        User user = userService.getUserById(createExpense.getUserId());
 
         // check category
-        Category category = categoryService.getCategoryById(categoryId);
+        Category category = categoryService.getCategoryById(createExpense.getCategoryId());
 
         // create expense
         Expense expense = new Expense();
         expense.setCreationDt(LocalDateTime.now());
         expense.setCategory(category);
         expense.setUser(user);
-        expense.setVoice(voice);
-        expense.setPrice(price);
+        expense.setVoice(createExpense.getVoice());
+        expense.setPrice(createExpense.getPrice());
 
         return expenseRepository.save(expense);
     }

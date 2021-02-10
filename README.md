@@ -6,7 +6,7 @@
 In the every day life we need to handle several costs and collect some incomes. Make sense to have a smart tool to save
 and keep under controls our expenses.
 
-The idea of this project is to offer some basic services in order to be used from a mobile app application.
+As a coding demo, idea of this project is to offer some basic services in order to be used from a mobile app application.
 
 The solution is composed o two different architectural components:
 * this Spring Boot REST Apis project
@@ -18,12 +18,14 @@ Simple sketch of the app:
 ![App Sketch](./src/main/resources/images/app_sketch.png "App interface")
 
 #### Use cases
-The feature offered are:
+The features offered from the back end services are:
 * display the expenses list for the current month
 * retrieve the expenses list for a specific year and month 
 * create a new expense by pre-defined category
 * delete an expense
 * retrieve the expenses's categories (used during the expense creation)
+
+The project contains the necessary setup to navigate the REST APIs using Swagger.
 
 #### Author
 This project has been created in February 2021 by Andrea Giassi.

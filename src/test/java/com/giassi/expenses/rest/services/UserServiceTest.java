@@ -65,7 +65,7 @@ public class UserServiceTest {
         assertEquals("2021-02-09T13:20", user.getLoginDt().toString());
     }
 
-    private static User getDemoUserData() {
+    public static User getDemoUserData() {
         User user = new User();
         user.setId(1L);
         user.setUsername("andrea");

@@ -14,12 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.format.ResolverStyle;
 import java.time.format.TextStyle;
 import java.util.List;
 import java.util.Locale;
@@ -85,7 +81,7 @@ public class ExpenseService {
         userService.getUserById(userId);
 
         // date filter validation
-        if (!isValidDateFilter(dateFilter)) {
+        if (!DateUtil.isValidDateFilter(dateFilter)) {
             throw new InvalidDataException("Invalid date filter");
         }
 
@@ -105,33 +101,11 @@ public class ExpenseService {
 
     public List<Expense> getUserExpensesListFiltered(final Long userId, final DateFilter dateFilter) {
         // date filter validation
-        if (!isValidDateFilter(dateFilter)) {
+        if (!DateUtil.isValidDateFilter(dateFilter)) {
             throw new InvalidDataException("Invalid date filter");
         }
 
         return expenseRepository.getExpenseListByUserIdFiltered(userId, dateFilter.getYear(), dateFilter.getMonth());
-    }
-
-    public static boolean isValidDateFilter(final DateFilter dateFilter) {
-        return isValidDate(dateFilter.getYear() + "-" + dateFilter.getMonth() + "-01");
-    }
-
-    // ref: https://mkyong.com/java/how-to-check-if-date-is-valid-in-java/
-    public static boolean isValidDate(final String date) {
-        try {
-            // ResolverStyle.STRICT for 30, 31 days checking, and also leap year.
-            LocalDate.parse(date,
-                    DateTimeFormatter.ofPattern("uuuu-M-d")
-                            .withResolverStyle(ResolverStyle.STRICT)
-            );
-
-            return true;
-        } catch (DateTimeParseException ex) {
-            log.error(ex.getMessage());
-            ex.printStackTrace();
-        }
-
-        return false;
     }
 
 }

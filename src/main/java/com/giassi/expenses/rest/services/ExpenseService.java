@@ -1,7 +1,7 @@
 package com.giassi.expenses.rest.services;
 
-import com.giassi.expenses.rest.dtos.CreateExpense;
-import com.giassi.expenses.rest.dtos.DateFilter;
+import com.giassi.expenses.rest.dtos.inputs.CreateExpenseInput;
+import com.giassi.expenses.rest.dtos.inputs.DateFilterInput;
 import com.giassi.expenses.rest.dtos.UserSummaryDTO;
 import com.giassi.expenses.rest.entities.Category;
 import com.giassi.expenses.rest.entities.Expense;
@@ -45,24 +45,24 @@ public class ExpenseService {
     }
 
     @Transactional
-    public Expense saveExpense(final CreateExpense createExpense) {
-        if (createExpense == null) {
+    public Expense saveExpense(final CreateExpenseInput createExpenseInput) {
+        if (createExpenseInput == null) {
             throw new InvalidDataException("create expense cannot be null");
         }
 
         // check user
-        User user = userService.getUserById(createExpense.getUserId());
+        User user = userService.getUserById(createExpenseInput.getUserId());
 
         // check category
-        Category category = categoryService.getCategoryById(createExpense.getCategoryId());
+        Category category = categoryService.getCategoryById(createExpenseInput.getCategoryId());
 
         // create expense
         Expense expense = new Expense();
         expense.setCreationDt(LocalDateTime.now());
         expense.setCategory(category);
         expense.setUser(user);
-        expense.setVoice(createExpense.getVoice());
-        expense.setPrice(createExpense.getPrice());
+        expense.setVoice(createExpenseInput.getVoice());
+        expense.setPrice(createExpenseInput.getPrice());
 
         return expenseRepository.save(expense);
     }
@@ -76,36 +76,36 @@ public class ExpenseService {
         return expenseRepository.getExpenseListByUserId(userId);
     }
 
-    public UserSummaryDTO getUserSummary(final Long userId, final DateFilter dateFilter) {
+    public UserSummaryDTO getUserSummary(final Long userId, final DateFilterInput dateFilterInput) {
         // check user
         userService.getUserById(userId);
 
         // date filter validation
-        if (!DateUtil.isValidDateFilter(dateFilter)) {
+        if (!DateUtil.isValidDateFilter(dateFilterInput)) {
             throw new InvalidDataException("Invalid date filter");
         }
 
         // sum expenses
-        Double total = expenseRepository.getTotalByYearAndMonth(userId, dateFilter.getYear(), dateFilter.getMonth());
+        Double total = expenseRepository.getTotalByYearAndMonth(userId, dateFilterInput.getYear(), dateFilterInput.getMonth());
         if (total == null) {
             total = 0d;
         }
 
         UserSummaryDTO summaryDTO = new UserSummaryDTO();
-        summaryDTO.setYear("" + dateFilter.getYear());
-        summaryDTO.setMonth(Month.of(dateFilter.getMonth()).getDisplayName(TextStyle.FULL, Locale.getDefault()));
+        summaryDTO.setYear("" + dateFilterInput.getYear());
+        summaryDTO.setMonth(Month.of(dateFilterInput.getMonth()).getDisplayName(TextStyle.FULL, Locale.getDefault()));
         summaryDTO.setTotal(total);
 
         return summaryDTO;
     }
 
-    public List<Expense> getUserExpensesListFiltered(final Long userId, final DateFilter dateFilter) {
+    public List<Expense> getUserExpensesListFiltered(final Long userId, final DateFilterInput dateFilterInput) {
         // date filter validation
-        if (!DateUtil.isValidDateFilter(dateFilter)) {
+        if (!DateUtil.isValidDateFilter(dateFilterInput)) {
             throw new InvalidDataException("Invalid date filter");
         }
 
-        return expenseRepository.getExpenseListByUserIdFiltered(userId, dateFilter.getYear(), dateFilter.getMonth());
+        return expenseRepository.getExpenseListByUserIdFiltered(userId, dateFilterInput.getYear(), dateFilterInput.getMonth());
     }
 
 }

@@ -1,4 +1,4 @@
-package com.giassi.expenses.rest.dtos;
+package com.giassi.expenses.rest.dtos.inputs;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import lombok.Data;
  * Create a new expense
  */
 @Data
-public class CreateExpense {
+public class CreateExpenseInput {
 
     private Long userId;
     private Long categoryId;

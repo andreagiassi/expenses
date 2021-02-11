@@ -1,7 +1,7 @@
 package com.giassi.expenses.rest;
 
 import com.giassi.expenses.rest.dtos.ExpenseDTO;
-import com.giassi.expenses.rest.dtos.DateFilter;
+import com.giassi.expenses.rest.dtos.inputs.DateFilterInput;
 import com.giassi.expenses.rest.dtos.UserDTO;
 import com.giassi.expenses.rest.dtos.UserSummaryDTO;
 import com.giassi.expenses.rest.services.ExpenseService;
@@ -34,13 +34,13 @@ public class UserRestController {
 
     @GetMapping("/{userId}/summary")
     public ResponseEntity<UserSummaryDTO> getUserCurrentMonthlySummary(@PathVariable(value = "userId") Long userId) {
-        return ResponseEntity.ok(expenseService.getUserSummary(userId, new DateFilter()));
+        return ResponseEntity.ok(expenseService.getUserSummary(userId, new DateFilterInput()));
     }
 
     @PostMapping("/{userId}/summary/filter")
     public ResponseEntity<UserSummaryDTO> getUserSummaryFiltered(@PathVariable(value = "userId") Long userId,
-                                                                 @RequestBody DateFilter dateFilter) {
-        return ResponseEntity.ok(expenseService.getUserSummary(userId, dateFilter));
+                                                                 @RequestBody DateFilterInput dateFilterInput) {
+        return ResponseEntity.ok(expenseService.getUserSummary(userId, dateFilterInput));
     }
 
     @GetMapping("/{userId}/expenses")
@@ -52,9 +52,9 @@ public class UserRestController {
 
     @PostMapping("/{userId}/expenses/filter")
     public ResponseEntity<List<ExpenseDTO>> getUserExpensesListFiltered(@PathVariable Long userId,
-                                                                        @RequestBody DateFilter dateFilter) {
+                                                                        @RequestBody DateFilterInput dateFilterInput) {
         ArrayList<ExpenseDTO> expenses = new ArrayList<>();
-        expenseService.getUserExpensesListFiltered(userId, dateFilter).forEach(e -> expenses.add(new ExpenseDTO(e)));
+        expenseService.getUserExpensesListFiltered(userId, dateFilterInput).forEach(e -> expenses.add(new ExpenseDTO(e)));
         return ResponseEntity.ok(expenses);
     }
 

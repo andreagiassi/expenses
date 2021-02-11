@@ -1,7 +1,7 @@
 package com.giassi.expenses.rest;
 
 import com.giassi.expenses.rest.dtos.CategoryDTO;
-import com.giassi.expenses.rest.dtos.CreateExpense;
+import com.giassi.expenses.rest.dtos.inputs.CreateExpenseInput;
 import com.giassi.expenses.rest.dtos.ExpenseDTO;
 import com.giassi.expenses.rest.services.CategoryService;
 import com.giassi.expenses.rest.services.ExpenseService;
@@ -30,8 +30,8 @@ public class ExpenseRestController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<ExpenseDTO> createExpense(@RequestBody CreateExpense createExpense) {
-        return ResponseEntity.ok(new ExpenseDTO(expenseService.saveExpense(createExpense)));
+    public ResponseEntity<ExpenseDTO> createExpense(@RequestBody CreateExpenseInput createExpenseInput) {
+        return ResponseEntity.ok(new ExpenseDTO(expenseService.saveExpense(createExpenseInput)));
     }
 
     @DeleteMapping("/{expenseId}")

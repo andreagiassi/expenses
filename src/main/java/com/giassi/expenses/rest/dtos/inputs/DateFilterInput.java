@@ -1,19 +1,19 @@
-package com.giassi.expenses.rest.dtos;
+package com.giassi.expenses.rest.dtos.inputs;
 
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
-public class DateFilter {
+public class DateFilterInput {
 
-    public DateFilter() {
+    public DateFilterInput() {
         LocalDateTime now = LocalDateTime.now();
         this.year = now.getYear();
         this.month = now.getMonthValue();
     }
 
-    public DateFilter(int year, int month) {
+    public DateFilterInput(int year, int month) {
         this.year = year;
         this.month = month;
     }

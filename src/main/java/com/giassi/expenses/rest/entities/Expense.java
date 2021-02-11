@@ -16,7 +16,7 @@ public class Expense {
     @Column(name="id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User user;
 
     @Basic
@@ -28,7 +28,7 @@ public class Expense {
     @Column(name="price", nullable = false)
     private double price;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name="category_id", nullable=false)
     private Category category;
 

@@ -45,13 +45,16 @@ public class ExpenseService {
     }
 
     @Transactional
-    public Expense saveExpense(final CreateExpenseInput createExpenseInput) {
+    public Expense saveExpense(final User user, final CreateExpenseInput createExpenseInput) {
+        // check on user
+        if (user == null) {
+            throw new InvalidDataException("user cannot be null");
+        }
+
+        // check on expense data
         if (createExpenseInput == null) {
             throw new InvalidDataException("create expense cannot be null");
         }
-
-        // check user
-        User user = userService.getUserById(createExpenseInput.getUserId());
 
         // check category
         Category category = categoryService.getCategoryById(createExpenseInput.getCategoryId());
@@ -67,8 +70,12 @@ public class ExpenseService {
         return expenseRepository.save(expense);
     }
 
-    public void deleteExpense(final Long expenseId) {
+    public void deleteExpense(final User user, final Long expenseId) {
         Expense expense = getExpenseById(expenseId);
+        if (expense.getUser().getId() != user.getId()) {
+            throw new InvalidDataException("User is not authorized to delete this expense. Wrong expense Id ?");
+        }
+
         expenseRepository.delete(expense);
     }
 

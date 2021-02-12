@@ -68,7 +68,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWEiLCJleHAiOjE2MTQwMDgyMzZ9.M6DzJZtu_kekbqRnUdy5w1rpx1En4HOZrhLSiWScIgc1xVt4GfhnWaR4gsN6GKT17pid0cdDHORXN1sU5_LeUQ",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWEiLCJleHAiOjE2MTQwMTE2ODN9.6ITBzo7BLzSw3YFBeoYGbxy6y6oa8LPbS6CTzE7FCCGwU1ywKIYNSIoxh4LNduDNRy8jnxBMBAuwgsGdwJhRZg",
 							"type": "string"
 						}
 					]
@@ -84,6 +84,237 @@
 					"path": [
 						"users",
 						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWEiLCJleHAiOjE2MTQwMTE2ODN9.6ITBzo7BLzSw3YFBeoYGbxy6y6oa8LPbS6CTzE7FCCGwU1ywKIYNSIoxh4LNduDNRy8jnxBMBAuwgsGdwJhRZg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/users/profile",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "summary - actual month",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWEiLCJleHAiOjE2MTQwMTE2ODN9.6ITBzo7BLzSw3YFBeoYGbxy6y6oa8LPbS6CTzE7FCCGwU1ywKIYNSIoxh4LNduDNRy8jnxBMBAuwgsGdwJhRZg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/users/summary",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"summary"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "summary filter",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWEiLCJleHAiOjE2MTQwMTE2ODN9.6ITBzo7BLzSw3YFBeoYGbxy6y6oa8LPbS6CTzE7FCCGwU1ywKIYNSIoxh4LNduDNRy8jnxBMBAuwgsGdwJhRZg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"year\" : 2021,\n    \"month\" : 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/summary/filter",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"summary",
+						"filter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "expenses - actual month",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWEiLCJleHAiOjE2MTQwMTE2ODN9.6ITBzo7BLzSw3YFBeoYGbxy6y6oa8LPbS6CTzE7FCCGwU1ywKIYNSIoxh4LNduDNRy8jnxBMBAuwgsGdwJhRZg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/users/expenses",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"expenses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "expenses filter",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWEiLCJleHAiOjE2MTQwMTE2ODN9.6ITBzo7BLzSw3YFBeoYGbxy6y6oa8LPbS6CTzE7FCCGwU1ywKIYNSIoxh4LNduDNRy8jnxBMBAuwgsGdwJhRZg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"year\" : 2021,\n    \"month\" : 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/expenses/filter",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"expenses",
+						"filter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "expenses - categories",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWEiLCJleHAiOjE2MTQwMTE2ODN9.6ITBzo7BLzSw3YFBeoYGbxy6y6oa8LPbS6CTzE7FCCGwU1ywKIYNSIoxh4LNduDNRy8jnxBMBAuwgsGdwJhRZg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/expenses/categories",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"expenses",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create expense",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZWEiLCJleHAiOjE2MTQwMTIwMzh9.He9hPJGvJ2egmJbe5O1PqwT4FFhVxFozv-WfMdJmfUOMyyzDqo6Bxx8qC4_R0c0JPtHp9zdK8aFSCx5YhcaUWw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"categoryId\" : 1,\n    \"price\" : 15.50,\n    \"voice\" : \"test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/expenses",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"expenses"
 					]
 				}
 			},

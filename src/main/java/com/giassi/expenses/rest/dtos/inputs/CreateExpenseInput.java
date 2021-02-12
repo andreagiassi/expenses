@@ -8,7 +8,6 @@ import lombok.Data;
 @Data
 public class CreateExpenseInput {
 
-    private Long userId;
     private Long categoryId;
     private double price;
     private String voice;

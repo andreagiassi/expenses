@@ -3,6 +3,7 @@ package com.giassi.expenses.rest.dtos;
 import com.giassi.expenses.rest.entities.Category;
 import lombok.Data;
 
+// An expense category
 @Data
 public class CategoryDTO {
 

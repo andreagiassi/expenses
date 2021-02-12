@@ -15,8 +15,8 @@ import java.util.ArrayList;
 
 public class AuthorizationFilter extends BasicAuthenticationFilter {
 
-    // TODO: to use a properties file
-    private String secretKey = "MagicJWT!123";
+    // @Value("${expenses.jwt.secret.key}")
+    private String secretKey = "Test123";
 
     public AuthorizationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);

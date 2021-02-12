@@ -19,6 +19,9 @@ import java.util.Date;
 
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
+    // @Value("${expenses.jwt.secret.key}")
+    private String secretKey = "Test123";
+
     private AuthenticationManager authenticationManager;
 
     public AuthenticationFilter(AuthenticationManager authenticationManager) {
@@ -37,11 +40,16 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     }
 
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain, Authentication authentication) {
+        org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
+        String username = user.getUsername();
+
         String token = Jwts.builder()
-                .setSubject(((User) authentication.getPrincipal()).getUsername())
+                .setSubject(username)
                 .setExpiration(new Date(System.currentTimeMillis() + 864_000_000))
-                .signWith(SignatureAlgorithm.HS512, "SecretKeyToGenJWTs".getBytes())
+                .signWith(SignatureAlgorithm.HS512, secretKey.getBytes())
                 .compact();
+
+        logger.info("username = " + username + " token = " + token);
 
         response.addHeader("Authorization", "Bearer " + token);
     }

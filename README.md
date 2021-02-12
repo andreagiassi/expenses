@@ -1,6 +1,6 @@
 # Expenses - Simple back end App prototype to manage your expenses
 
-#### Overview
+### Overview
 >Goal of this project is to offer a service layer to save and view your incomes and expenses.
 
 In the every day life we need to handle several costs and collect some incomes. Make sense to have a smart tool to save
@@ -14,17 +14,29 @@ The back end solution is composed of two different architectural components:
 
 In order to run the software is necessary to create the database instance "expenses".
 
-#### Security using JWT
+### Security using JWT: JSON Web Token
 This project is using JWT to secure the REST apis.
 
 >JWT stands for JSON Web Token. It's an open industry standard for representing claims securely between two parties.
 
-It's allowed to login or signup and only after access to the protected resources.
+This project works allowed to login or signup and only after access to the protected resources.
 
-After the login, the user of the app will communicate with the services a specific json web token.
-This token will contain, in this case, the username in order to recover the user information.
+After the login, the user of the app will communicate with the services using a specific json web token.
+This token will contain, in this case, the username in order to recover the user information later on.
 
 For more information about JWT refer to the official [JWT web site](https://jwt.io/) .
+
+### Manual test
+>Thanks to Postman will be possible to test manually the services.
+
+Create the MySql database schema if not exists and run the web application.
+
+Because the database is empty at the start, using Postman project, create a new user calling the "signup" endpoint.
+After that we can login with the new user calling "login" endpoint.
+
+At the login phase the AuthenticationFilter will be called. Here for test purposes and comfort the token will be printed in the server console.
+Copying this token to the clipboard and set it on the "testOnProtectedApi" Authorization header.
+This will enable the call correctly to the test endpoint. The test response displaied is infact the username of the Principal.
 
 #### UX/UI sketch
 To keep it simple this demo, a sketch of the app that solve the problem is as below:

@@ -38,6 +38,8 @@ At the login phase the AuthenticationFilter will be called. Here for test purpos
 Copying this token to the clipboard and set it on the "testOnProtectedApi" Authorization header.
 This will enable the call correctly to the test endpoint. The test response displaied is infact the username of the Principal.
 
+![App Sketch](./src/main/resources/images/postman.png "Postman project")
+
 #### UX/UI sketch
 To keep it simple this demo, a sketch of the app that solve the problem is as below:
 

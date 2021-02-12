@@ -12,6 +12,20 @@ The back end solution is composed of two different architectural components:
 * this Spring Boot REST Apis project
 * one MySql database
 
+In order to run the software is necessary to create the database instance "expenses".
+
+#### Security using JWT
+This project is using JWT to secure the REST apis.
+
+>JWT stands for JSON Web Token. It's an open industry standard for representing claims securely between two parties.
+
+It's allowed to login or signup and only after access to the protected resources.
+
+After the login, the user of the app will communicate with the services a specific json web token.
+This token will contain, in this case, the username in order to recover the user information.
+
+For more information about JWT refer to the official [JWT web site](https://jwt.io/) .
+
 #### UX/UI sketch
 To keep it simple this demo, a sketch of the app that solve the problem is as below:
 

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,12 @@ public class UserRestController {
     @Autowired
     private ExpenseService expenseService;
 
+    // TODO: goal is to avoid to passthe userId and to use instead the username in the JWT token to retrieve the User
+    @GetMapping("/test")
+    public ResponseEntity<String> getTest(Principal principal) {
+        String x = principal.getName();
+        return ResponseEntity.ok(x);
+    }
 
     @GetMapping("/{userId}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable(value = "userId") Long userId) {

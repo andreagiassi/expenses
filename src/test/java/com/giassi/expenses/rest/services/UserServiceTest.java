@@ -3,6 +3,7 @@ package com.giassi.expenses.rest.services;
 import com.giassi.expenses.rest.entities.Gender;
 import com.giassi.expenses.rest.entities.User;
 import com.giassi.expenses.rest.exceptions.InvalidDataException;
+import com.giassi.expenses.rest.exceptions.UserNotFoundException;
 import com.giassi.expenses.rest.repositories.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,7 +38,7 @@ public class UserServiceTest {
     }
 
     // not existing
-    @Test(expected = InvalidDataException.class)
+    @Test(expected = UserNotFoundException.class)
     public void given_not_existing_user_when_getUserById_throw_exception() {
         userService.getUserById(99L);
     }

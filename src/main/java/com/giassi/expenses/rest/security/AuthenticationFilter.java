@@ -14,19 +14,33 @@ import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Properties;
 
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    // @Value("${expenses.jwt.secret.key}")
-    private String secretKey = "Test123";
+    private String secretKey;
 
     private AuthenticationManager authenticationManager;
 
     public AuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
         setFilterProcessesUrl("/login");
+        secretKey = getSecretKey();
+    }
+
+    public static String getSecretKey() {
+        String key = null;
+        try (InputStream input = AuthenticationFilter.class.getClassLoader().getResourceAsStream("./application.properties")) {
+            Properties prop = new Properties();
+            prop.load(input);
+            key = prop.getProperty("expenses.jwt.secret.key");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return key;
     }
 
     @Override

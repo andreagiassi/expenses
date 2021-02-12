@@ -15,11 +15,11 @@ import java.util.ArrayList;
 
 public class AuthorizationFilter extends BasicAuthenticationFilter {
 
-    // @Value("${expenses.jwt.secret.key}")
-    private String secretKey = "Test123";
+    private String secretKey;
 
     public AuthorizationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
+        secretKey = AuthenticationFilter.getSecretKey();
     }
 
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
